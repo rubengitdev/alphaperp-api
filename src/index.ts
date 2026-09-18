@@ -28,7 +28,7 @@ app.use(morgan('combined', {
 
 // Basic health check
 app.get('/', (req: Request, res: Response) => {
-  res.send('Stableperp API is running');
+  res.send('AlphaPerp API is running');
 });
 
 // GET /api/markets
@@ -126,7 +126,7 @@ app.get('/api/stocks/change', async (req: Request, res: Response) => {
 
 // Start the server and Indexer
 app.listen(PORT, () => {
-  logger.info(`🚀 Stableperp API Server running on port ${PORT}`);
+  logger.info(`🚀 AlphaPerp API Server running on port ${PORT}`);
   
   // Start the background indexer in the same process
   startIndexer().then(() => {

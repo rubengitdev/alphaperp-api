@@ -100,14 +100,14 @@ export async function generateOptionChains(
 
         const idlPath = path.resolve(
             __dirname,
-            '../../stableperp-web/src/idl/stableperp.json',
+            '../../alphaperp-web/src/idl/alphaperp.json',
         );
         const idl = JSON.parse(fs.readFileSync(idlPath, 'utf8'));
 
         const programIdStr =
             mode === 'mainnet'
-                ? process.env.STABLEPERP_PROGRAM_ID_MAINNET
-                : process.env.STABLEPERP_PROGRAM_ID;
+                ? process.env.ALPHAPERP_PROGRAM_ID_MAINNET
+                : process.env.ALPHAPERP_PROGRAM_ID;
 
         if (programIdStr) {
             idl.address = programIdStr;

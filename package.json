@@ -1,11 +1,11 @@
 {
-  "name": "stableperp-api",
+  "name": "alphaperp-api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "nodemon --exec ts-node src/index.ts",
-    "build": "prisma generate && tsc && mkdir -p dist/idl && cp src/idl/stableperp.json dist/idl/stableperp.json",
+    "build": "prisma generate && tsc && mkdir -p dist/idl && cp src/idl/alphaperp.json dist/idl/alphaperp.json",
     "start": "prisma migrate deploy && node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "init-market": "ts-node scripts/init-market.ts",

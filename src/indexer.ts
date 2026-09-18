@@ -12,13 +12,13 @@ const prisma = new PrismaClient();
 
 // Use Helius or custom RPC in SOLANA_RPC_URL to avoid rate limits
 const RPC_URL_DEVNET = process.env.SOLANA_RPC_URL || 'https://api.devnet.solana.com';
-const PROGRAM_ID_DEVNET = process.env.STABLEPERP_PROGRAM_ID || '';
+const PROGRAM_ID_DEVNET = process.env.ALPHAPERP_PROGRAM_ID || '';
 
 const RPC_URL_MAINNET = process.env.SOLANA_RPC_URL_MAINNET || 'https://api.mainnet-beta.solana.com';
-const PROGRAM_ID_MAINNET = process.env.STABLEPERP_PROGRAM_ID_MAINNET || '';
+const PROGRAM_ID_MAINNET = process.env.ALPHAPERP_PROGRAM_ID_MAINNET || '';
 
 if (!PROGRAM_ID_DEVNET) {
-  logger.error('❌ STABLEPERP_PROGRAM_ID is not set in .env');
+  logger.error('❌ ALPHAPERP_PROGRAM_ID is not set in .env');
   process.exit(1);
 }
 
@@ -45,12 +45,12 @@ if (connectionMainnet && programPublicKeyMainnet) {
 }
 
 // Load IDL
-const idlPath = path.join(__dirname, 'idl', 'stableperp.json');
+const idlPath = path.join(__dirname, 'idl', 'alphaperp.json');
 let idl: Idl;
 try {
   idl = JSON.parse(fs.readFileSync(idlPath, 'utf8'));
 } catch (e) {
-  logger.error('❌ Failed to load IDL at src/idl/stableperp.json. Did you copy it?');
+  logger.error('❌ Failed to load IDL at src/idl/alphaperp.json. Did you copy it?');
   process.exit(1);
 }
 
