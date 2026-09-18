@@ -34,7 +34,7 @@ app.get('/', (req: Request, res: Response) => {
 // GET /api/markets
 // Fetch all active markets with their liquidity and current premium
 app.get('/api/markets', async (req: Request, res: Response) => {
-  const network = (req.query.network as string) || 'devnet';
+  const network = (req.query.network as string) || 'testnet';
   try {
     const markets = await prisma.market.findMany({
       where: { network },
@@ -51,7 +51,7 @@ app.get('/api/markets', async (req: Request, res: Response) => {
 // Fetch positions and trade history for a specific wallet
 app.get('/api/portfolio/:wallet', async (req: Request, res: Response) => {
   const wallet = req.params.wallet as string;
-  const network = (req.query.network as string) || 'devnet';
+  const network = (req.query.network as string) || 'testnet';
   
   if (!wallet) {
     return res.status(400).json({ success: false, error: 'Wallet address is required' });

@@ -11,19 +11,19 @@ dotenv.config();
 const prisma = new PrismaClient();
 
 // Use Helius or custom RPC in SOLANA_RPC_URL to avoid rate limits
-const RPC_URL_DEVNET = process.env.SOLANA_RPC_URL || 'https://api.devnet.solana.com';
-const PROGRAM_ID_DEVNET = process.env.ALPHAPERP_PROGRAM_ID || '';
+const RPC_URL_TESTNET = process.env.SOLANA_RPC_URL || 'https://api.testnet.solana.com';
+const PROGRAM_ID_TESTNET = process.env.ALPHAPERP_PROGRAM_ID || '';
 
 const RPC_URL_MAINNET = process.env.SOLANA_RPC_URL_MAINNET || 'https://api.mainnet-beta.solana.com';
 const PROGRAM_ID_MAINNET = process.env.ALPHAPERP_PROGRAM_ID_MAINNET || '';
 
-if (!PROGRAM_ID_DEVNET) {
+if (!PROGRAM_ID_TESTNET) {
   logger.error('❌ ALPHAPERP_PROGRAM_ID is not set in .env');
   process.exit(1);
 }
 
-const connectionDevnet = new Connection(RPC_URL_DEVNET, 'confirmed');
-const programPublicKeyDevnet = new PublicKey(PROGRAM_ID_DEVNET);
+const connectionTestnet = new Connection(RPC_URL_TESTNET, 'confirmed');
+const programPublicKeyTestnet = new PublicKey(PROGRAM_ID_TESTNET);
 
 let connectionMainnet: Connection | null = null;
 let programPublicKeyMainnet: PublicKey | null = null;
@@ -37,8 +37,8 @@ if (PROGRAM_ID_MAINNET && PROGRAM_ID_MAINNET.length >= 32) {
   }
 }
 
-logger.info(`🔌 Connecting to Devnet RPC at ${RPC_URL_DEVNET}`);
-logger.info(`📡 Listening for Devnet events on Program: ${PROGRAM_ID_DEVNET}`);
+logger.info(`🔌 Connecting to Testnet RPC at ${RPC_URL_TESTNET}`);
+logger.info(`📡 Listening for Testnet events on Program: ${PROGRAM_ID_TESTNET}`);
 if (connectionMainnet && programPublicKeyMainnet) {
   logger.info(`🔌 Connecting to Mainnet RPC at ${RPC_URL_MAINNET}`);
   logger.info(`📡 Listening for Mainnet events on Program: ${PROGRAM_ID_MAINNET}`);
@@ -156,11 +156,11 @@ function setupListener(conn: Connection, progId: PublicKey, network: string, pro
 }
 
 export async function startIndexer() {
-  const mode = process.env.INDEXER_MODE || 'both'; // 'devnet', 'mainnet', or 'both'
+  const mode = process.env.INDEXER_MODE || 'both'; // 'testnet', 'mainnet', or 'both'
 
-  if (mode === 'devnet' || mode === 'both') {
-    setupListener(connectionDevnet, programPublicKeyDevnet, 'devnet', PROGRAM_ID_DEVNET);
-    logger.info('🚀 Devnet Indexer Started');
+  if (mode === 'testnet' || mode === 'both') {
+    setupListener(connectionTestnet, programPublicKeyTestnet, 'testnet', PROGRAM_ID_TESTNET);
+    logger.info('🚀 Testnet Indexer Started');
   }
   
   if ((mode === 'mainnet' || mode === 'both') && connectionMainnet && programPublicKeyMainnet) {

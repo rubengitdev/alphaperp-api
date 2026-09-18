@@ -52,14 +52,14 @@ export async function generateOptionChains(
     options: ChainGeneratorOptions = {},
 ) {
     const envMode =
-        options.forceNetwork || process.env.AUTO_CHAIN_MODE || 'devnet';
+        options.forceNetwork || process.env.AUTO_CHAIN_MODE || 'testnet';
 
     if (envMode === 'off') {
         logger.info('🛑 Auto Option Chain Generator is OFF');
         return;
     }
 
-    const modes = envMode === 'both' ? ['devnet', 'mainnet'] : [envMode];
+    const modes = envMode === 'both' ? ['testnet', 'mainnet'] : [envMode];
     logger.info(
         `🚀 Starting Auto Option Chain Generator for [${modes.join(', ').toUpperCase()}]`,
     );
@@ -147,7 +147,7 @@ export async function generateOptionChains(
 
         const expiryDays = [7, 14, 30];
         const strikeMultipliers = [0.95, 0.975, 1.0, 1.025, 1.05];
-        const networkTag = mode === 'mainnet' ? 'mainnet-beta' : 'devnet';
+        const networkTag = mode === 'mainnet' ? 'mainnet-beta' : 'testnet';
 
         let targetStocks = stocks;
         if (options.symbol) {
